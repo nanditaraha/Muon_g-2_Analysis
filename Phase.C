@@ -1,0 +1,28 @@
+{
+
+  double p0 =    -0.255134;
+  double p1 =      65.3034;
+  double p2 =     -705.492;
+  double p3 =      5267.21;
+  double p4 =     -23986.5;
+  double p5 =      68348.1;
+  double p6 =      -121761;
+  double p7 =       131393;
+  double p8 =       -78343;
+  double p9 =      19774.1;
+
+  
+  
+  TF1* phase = new TF1("phase","[0] + [1]*x + [2]*x^2 + [3]*x^3 + [4]*x^4 + [5]*x^5 + [6]*x^6 + [7]*x^7 + [8]*x^8 + [9]*x^9",0.,1.);
+  phase->SetParNames("p0","p1","p2","p3","p4","p5","p6","p7","p8","p9");
+  phase->SetParameters(p0,p1,p2,p3,p4,p5,p6,p7,p8,p9);
+  double para[10]={p0,p1,p2,p3,p4,p5,p6,p7,p8,p9};
+  TCanvas* c1 = new TCanvas("c1");
+  phase->SetNpx(10000000);
+  phase->SetLineColor(2);
+  printf("%f",phase->Mean(0,1,para,0.00001));
+  //TH1D* hp = new TH1D("hp","Phi(y)",bin,0.,1.);
+  TH1D* hp = new TH1D("hp","Phi(y)",310,0.,1.);
+  hp->Eval(phase);
+  hp->Draw();
+}
